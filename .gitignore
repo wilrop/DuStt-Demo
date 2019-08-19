@@ -1,1 +1,4 @@
 venv/
+.DS_Store
+.vscode/
+stt4dutch/inference/uploads
