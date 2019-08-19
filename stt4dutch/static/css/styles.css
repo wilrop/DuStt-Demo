@@ -14,12 +14,20 @@
     padding-bottom: 2vh;
 }
 
-#selector{
+.selector{
     width: 50%;
 }
 
-#form{
+#audio{
     text-align: center;
+}
+
+#currentAudio{
+    padding-bottom: 1vh;
+}
+
+#fileUpload{
+    display: inline;
 }
 
 

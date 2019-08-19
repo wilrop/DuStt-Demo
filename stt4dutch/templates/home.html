@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
     <div id="home">
             <div class="landing-text">
@@ -11,7 +12,7 @@
 
     <div id="models">
         <p>Select the model you want to use here!</p>
-        <select class="custom-select" id="selector">
+        <select class="custom-select selector" id="modelSelector">
             <option value="30-1024-00055-2-NOC.pb">30-1024-00055-2-NOC.pb</option>
             <option value="30-2048-00055-35-SNOD.pb">30-2048-00055-35-SNOD.pb</option>
             <option value="30-2048-00055-2-SNOD.pb">30-2048-00055-2-SNOD.pb</option>
@@ -20,13 +21,57 @@
           </select>
     </div>
 
-    <div id="form">
-        <form method="POST" class="post-form" enctype="multipart/form-data">  
-            {% csrf_token %}  
-            {{ form.as_p }}  
-            <button type="submit" class="save btn btn-primary">Save</button>  
-        </form> 
+    <div id="audio">
+        <div id="currentAudio">
+            <p>Select the audio file you want to use here!</p>
+            <select class="custom-select selector" id="audioSelector">
+                {% for file in audioFiles %}
+                <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+              </select>
+        </div>
+
+        <div id="fileUpload">
+            <p>Or upload your own!</p>
+            <form method="POST" class="post-form" enctype="multipart/form-data">  
+                {% csrf_token %}  
+                {{ form.as_p }}  
+                <button type="submit" class="save btn btn-primary" id="fileUpload">Upload!</button>  
+            </form> 
+        </div>
+
+    <div>
+        <button type="submit" class="save btn btn-primary" id="prsSubmit">Run inference</button>
+    </div> 
+
+    <div class="output">
+        <p id="output"></p>
     </div>
-    
+
+    </div>
+
+    {% block javascript %}
+    <script>
+        $( "#prsSubmit" ).click(function( event ) {
+            event.preventDefault();
+            $.ajax({
+                url: "{% url 'inference:run_inference' %}",
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'model': $('#modelSelector').val(),
+                    'audio': $('#audioSelector').val(),
+                },
+                success: function(data) {
+                    $("#output").text(data.output);;
+                },
+                error:function(error){
+                    alert("Something went wrong. Try again!");
+                }
+            });
+        });
+    </script>
+    {% endblock %}
 
 {% endblock %}
