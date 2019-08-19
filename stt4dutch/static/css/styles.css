@@ -1,16 +1,26 @@
 #home {
-    padding-bottom: 35vh;
+    padding-bottom: 10vh;
     padding-top: 20px;
     text-align: center;
    }
 
 #home h1 {
-    font-size: 6vw;
+    font-size: 5vw;
+    padding-bottom: 2vh;
 }
-    
-#home h3 {
-    font-size: 3.2vw;
-    padding-bottom: 4vh;
+
+#models{
+    text-align: center;
+    padding-bottom: 2vh;
 }
+
+#selector{
+    width: 50%;
+}
+
+#form{
+    text-align: center;
+}
+
 
     

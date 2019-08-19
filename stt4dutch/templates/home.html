@@ -3,15 +3,30 @@
 {% block content %}
     <div id="home">
             <div class="landing-text">
-                <h1>Speech To Text For Dutch</h1>
-                <h3>A demo for the bachelor thesis: Building a Speech To Text Engine For Dutch </h3>
-                <h2>By Willem Röpke</h2>
+                <h1>Speech-To-Text For Dutch</h1>
+                <h4>A demo for the bachelor thesis: Building a Speech-To-Text Engine For Dutch </h3>
+                <h5>By Willem Röpke</h2>
             </div>
     </div>
-    <form method="POST" class="post-form" enctype="multipart/form-data">  
-        {% csrf_token %}  
-        {{ form.as_p }}  
-        <button type="submit" class="save btn btn-default">Save</button>  
-    </form> 
+
+    <div id="models">
+        <p>Select the model you want to use here!</p>
+        <select class="custom-select" id="selector">
+            <option value="30-1024-00055-2-NOC.pb">30-1024-00055-2-NOC.pb</option>
+            <option value="30-2048-00055-35-SNOD.pb">30-2048-00055-35-SNOD.pb</option>
+            <option value="30-2048-00055-2-SNOD.pb">30-2048-00055-2-SNOD.pb</option>
+            <option value="30-2048-00055-5-SNOF.pb">30-2048-00055-5-SNOF.pb</option>
+            <option value="30-2048-00055-2-SNOF.pb">30-2048-00055-2-SNOF.pb</option>
+          </select>
+    </div>
+
+    <div id="form">
+        <form method="POST" class="post-form" enctype="multipart/form-data">  
+            {% csrf_token %}  
+            {{ form.as_p }}  
+            <button type="submit" class="save btn btn-primary">Save</button>  
+        </form> 
+    </div>
+    
 
 {% endblock %}
