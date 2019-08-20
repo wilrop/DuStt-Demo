@@ -11,11 +11,10 @@ def index(request):
     if request.method == 'POST':  
         audio = AudioFile(request.POST, request.FILES)  
         if audio.is_valid():  
-            handle_uploaded_file(request.FILES['file'])             
-            return HttpResponse("File uploaded successfully!")
-    else:  
-        audio = AudioFile() 
-        audioFiles =  os.listdir(path)
+            handle_uploaded_file(request.FILES['file'])    
+                      
+    audio = AudioFile() 
+    audioFiles =  os.listdir(path)
     return render(request, "home.html", {'form':audio, 'audioFiles':audioFiles})
 
 def run_inference(request):
