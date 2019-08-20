@@ -64,6 +64,7 @@
                     'audio': $('#audioSelector').val(),
                 },
                 success: function(data) {
+                    console.log("ik kom hier ook echt 2x")
                     $("#output").text(data.output);;
                 },
                 error:function(error){
