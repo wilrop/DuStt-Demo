@@ -36,17 +36,17 @@
             <form method="POST" class="post-form" enctype="multipart/form-data">  
                 {% csrf_token %}  
                 {{ form.as_p }}  
-                <button type="submit" class="save btn btn-primary" id="fileUpload">Upload!</button>  
+                <button type="submit" class="save btn btn-light" id="fileUpload">Upload!</button>  
             </form> 
         </div>
 
-    <div>
-        <button type="submit" class="save btn btn-primary" id="prsSubmit">Run inference</button>
-    </div> 
+        <div id="inference">
+            <button type="submit" class="save btn btn-primary" id="prsSubmit">Run inference</button>
+        </div> 
 
-    <div class="output">
-        <p id="output"></p>
-    </div>
+        <div class="output">
+            <h6 id="output"></p>
+        </div>
 
     </div>
 
@@ -65,7 +65,7 @@
                 },
                 success: function(data) {
                     console.log("ik kom hier ook echt 2x")
-                    $("#output").text(data.output);;
+                    $("#output").text("Inferred text: " + data.output);;
                 },
                 error:function(error){
                     alert("Something went wrong. Try again!");

@@ -1,5 +1,5 @@
 #home {
-    padding-bottom: 10vh;
+    padding-bottom: 7vh;
     padding-top: 20px;
     text-align: center;
    }
@@ -27,6 +27,14 @@
 }
 
 #fileUpload{
+    padding-bottom: 1vh;
+}
+
+#inference{
+    padding-bottom: 4vh;
+}
+
+.output{
     display: inline;
 }
 
