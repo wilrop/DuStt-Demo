@@ -21,15 +21,13 @@ def index(request):
     return render(request, "home.html", {'form':audio, 'audioFiles':audioFiles})
 
 def upload(request):
-    filename = datetime.now().strftime("%d-%m-%Y:%H-%M-%S") + ".wav"
+    print(request.META)
+    filename = request.META['HTTP_FILENAME']
     audioFile = request.body
 
     with open(path + filename, 'wb+') as destination:  
         destination.write(audioFile)
-
-    audio = AudioFile()
-    audioFiles =  os.listdir(path)
-    audioFiles = filter(lambda x: x.endswith(".wav"), audioFiles)
+    print("jajajaHIER")   
     return HttpResponse("Klaar")
 
 def run_inference(request):

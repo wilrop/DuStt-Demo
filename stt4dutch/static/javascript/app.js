@@ -113,7 +113,16 @@ function getCookie(name) {
 function createDownloadLink(blob) {
     var csrftoken = getCookie('csrftoken');
     var xhr=new XMLHttpRequest();
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var filename = date + ' ' + time + '.wav';
+
     xhr.open("POST","upload/",true);
     xhr.setRequestHeader("X-CSRFToken", csrftoken);	
-	xhr.send(blob);
+    xhr.setRequestHeader("filename", filename);
+    xhr.setRequestHeader("TEST","YEET")
+    xhr.send(blob);
+    $('#audioSelector').append('<option value="' + filename + '" selected="selected">' + filename + '</option>');
 }
