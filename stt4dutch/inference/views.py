@@ -5,6 +5,8 @@ from .functions import run_inference as specific_inference
 from .forms import AudioFile 
 
 import os
+from datetime import datetime
+
 path = 'inference/uploads/'
 
 def index(request):
@@ -15,7 +17,20 @@ def index(request):
                       
     audio = AudioFile() 
     audioFiles =  os.listdir(path)
+    audioFiles = filter(lambda x: x.endswith(".wav"), audioFiles)
     return render(request, "home.html", {'form':audio, 'audioFiles':audioFiles})
+
+def upload(request):
+    filename = datetime.now().strftime("%d-%m-%Y:%H-%M-%S") + ".wav"
+    audioFile = request.body
+
+    with open(path + filename, 'wb+') as destination:  
+        destination.write(audioFile)
+
+    audio = AudioFile()
+    audioFiles =  os.listdir(path)
+    audioFiles = filter(lambda x: x.endswith(".wav"), audioFiles)
+    return HttpResponse("Klaar")
 
 def run_inference(request):
     model = request.POST.get('model', None)

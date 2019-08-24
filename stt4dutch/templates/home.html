@@ -17,7 +17,7 @@
             <option value="30-2048-00055-35-SNOD.pb">30-2048-00055-35-SNOD.pb</option>
             <option value="30-2048-00055-2-SNOD.pb">30-2048-00055-2-SNOD.pb</option>
             <option value="30-2048-00055-5-SNOF.pb">30-2048-00055-5-SNOF.pb</option>
-            <option value="30-2048-00055-2-SNOF.pb">30-2048-00055-2-SNOF.pb</option>
+            <option value="30-2048-00055-2-NOF.pb">30-2048-00055-2-NOF.pb</option>
           </select>
     </div>
 
@@ -40,6 +40,13 @@
             </form> 
         </div>
 
+        <div id="controls">
+            <p>Or record your own!</p>
+            <button class="btn-success" id="recordButton">Record</button>
+            <button class="btn-danger" id="stopButton" disabled>Stop</button>
+        </div>
+        <div id="formats">Format: start recording to see sample rate</div>
+
         <div id="inference">
             <button type="submit" class="save btn btn-primary" id="prsSubmit">Run inference</button>
         </div> 
@@ -51,6 +58,10 @@
     </div>
 
     {% block javascript %}
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM --> 
+    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+    <script src="{% static 'javascript/app.js' %}"></script>
+
     <script>
         $( "#prsSubmit" ).click(function( event ) {
             event.preventDefault();
@@ -64,7 +75,6 @@
                     'audio': $('#audioSelector').val(),
                 },
                 success: function(data) {
-                    console.log("ik kom hier ook echt 2x")
                     $("#output").text("Inferred text: " + data.output);;
                 },
                 error:function(error){
