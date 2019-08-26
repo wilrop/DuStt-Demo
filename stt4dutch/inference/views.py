@@ -6,6 +6,7 @@ from .forms import AudioFile
 
 import os
 from datetime import datetime
+from playsound import playsound
 
 path = 'inference/uploads/'
 
@@ -26,8 +27,7 @@ def upload(request):
     audioFile = request.body
 
     with open(path + filename, 'wb+') as destination:  
-        destination.write(audioFile)
-    print("jajajaHIER")   
+        destination.write(audioFile)  
     return HttpResponse("Klaar")
 
 def run_inference(request):
@@ -40,4 +40,14 @@ def run_inference(request):
     data = {                        
         'output': output,
     }
+    return JsonResponse(data)
+
+def play_audio(request):
+    audio = request.POST.get('audio', None)
+    audio_path = os.path.abspath(path + audio)
+    audio_path = audio_path.replace(" ", "%20")
+    print(audio_path)
+    playsound(audio_path)
+
+    data = {}
     return JsonResponse(data)

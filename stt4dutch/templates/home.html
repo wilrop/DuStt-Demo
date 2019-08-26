@@ -29,6 +29,8 @@
                 <option value="{{ file }}">{{ file }}</option>
                 {% endfor %}
               </select>
+
+              <button type="button" class="btn btn-light" id="playAudio">Play</button>
         </div>
 
         <div id="fileUpload">
@@ -76,6 +78,25 @@
                 },
                 success: function(data) {
                     $("#output").text("Inferred text: " + data.output);;
+                },
+                error:function(error){
+                    alert("Something went wrong. Try again!");
+                }
+            });
+        });
+
+        $( "#playAudio" ).click(function( event ) {
+            event.preventDefault();
+            $.ajax({
+                url: "{% url 'inference:play_audio' %}",
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'csrfmiddlewaretoken': "{{ csrf_token }}",
+                    'audio': $('#audioSelector').val(),
+                },
+                success: function(data) {
+                    console.log("Played audio!")
                 },
                 error:function(error){
                     alert("Something went wrong. Try again!");

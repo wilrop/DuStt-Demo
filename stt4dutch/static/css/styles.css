@@ -18,6 +18,13 @@
     width: 50%;
 }
 
+#currentAudio{
+    text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #audio{
     text-align: center;
 }
