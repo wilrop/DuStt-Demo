@@ -22,7 +22,6 @@ def index(request):
     return render(request, "home.html", {'form':audio, 'audioFiles':audioFiles})
 
 def upload(request):
-    print(request.META)
     filename = request.META['HTTP_FILENAME']
     audioFile = request.body
 
@@ -45,8 +44,7 @@ def run_inference(request):
 def play_audio(request):
     audio = request.POST.get('audio', None)
     audio_path = os.path.abspath(path + audio)
-    audio_path = audio_path.replace(" ", "%20")
-    print(audio_path)
+    audio_path = audio_path.replace(" ", "%20") # This is done to circumvent problems with spaces in filenames.
     playsound(audio_path)
 
     data = {}
