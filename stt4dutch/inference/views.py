@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .functions import handle_uploaded_file
 from .functions import run_inference as specific_inference
 from .forms import AudioFile 
@@ -14,11 +15,13 @@ def index(request):
     if request.method == 'POST':  
         audio = AudioFile(request.POST, request.FILES)  
         if audio.is_valid():  
-            handle_uploaded_file(request.FILES['file'])    
+            handle_uploaded_file(request.FILES['file']) 
+            return HttpResponseRedirect(reverse('inference:index'))   
                       
     audio = AudioFile() 
     audioFiles =  os.listdir(path)
-    audioFiles = filter(lambda x: x.endswith(".wav"), audioFiles)
+    audioFiles = list(filter(lambda x: x.endswith(".wav"), audioFiles))
+    audioFiles.sort(key=lambda x: os.path.getmtime(path + x), reverse=True)
     return render(request, "home.html", {'form':audio, 'audioFiles':audioFiles})
 
 def upload(request):
